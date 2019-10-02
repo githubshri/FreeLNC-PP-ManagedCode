@@ -76,6 +76,7 @@ public class WebdriverManagerExtend extends Grid{
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("--start-maximized");
 			chromeOptions.addArguments("window-size=1600,1200");
+//			chromeOptions.setBinary(localDir + "chromedriver.exe");//need to validate it's dependancy for exec
 			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 			capabilities.setPlatform(Platform.getCurrent());
 			Grid.setCapabilities(capabilities);
