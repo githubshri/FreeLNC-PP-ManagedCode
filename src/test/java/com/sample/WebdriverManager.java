@@ -38,7 +38,11 @@ public class WebdriverManager {
 	static DesiredCapabilities capabilities = null;
 
 	static RemoteWebDriver driver = Grid.getRemoteDriver();
-
+/**
+ * Method for pickup a browser type and details. 
+ * 
+ * @return
+ */
 	private static WebDriver startBrowser() {
 		String browserName = System.getProperty(BROWSER_PROPERTY);// ConfigHolder.getBrowserType();
 		String url = System.getProperty(BASE_URL_PROPERTY);// ConfigHolder.getBaseUrl();
