@@ -12,6 +12,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 /**
  * @author shridhar1287
  *
@@ -20,7 +22,7 @@ public class WebdriverManager {
 	public static final String dir = System.getProperty("user.dir");
 	public static final ThreadLocal<WebDriver> WEB_DRIVER_THREAD_LOCAL = ThreadLocal
 			.withInitial(WebdriverManager::startBrowser);
-//	private static final String BASE_URL_PROPERTY = "url";
+	// private static final String BASE_URL_PROPERTY = "url";
 	private static final String BROWSER_PROPERTY = "browser";
 
 	static {
@@ -30,25 +32,30 @@ public class WebdriverManager {
 	}
 
 	static RemoteWebDriver driverCustome = null;
-	RemoteWebDriver friverChr = null;
 	// Capabilities capabilities = null;
 	static DesiredCapabilities capabilities = null;
 
 	static RemoteWebDriver driver = Grid.getRemoteDriver();
-/**
- * Method for pickup a browser type and details. 
- * 
- * @return
- */
+
+	/**
+	 * Method for pickup a browser type and details.
+	 * 
+	 * @return
+	 */
 	private static WebDriver startBrowser() {
 		String browserName = System.getProperty(BROWSER_PROPERTY);// ConfigHolder.getBrowserType();
 
 		if (browserName.equalsIgnoreCase("firefox")) {
+			// setup the firefoxdriver using WebDriverManager
+			// WebDriverManager.firefoxdriver().setup();
 			DesiredCapabilities.firefox();
 			driverCustome = new FirefoxDriver();
-			FirefoxDriver driverCustome = (FirefoxDriver) driver;
+			driverCustome = (FirefoxDriver) driver;
 		} else if (browserName.equalsIgnoreCase("chrome")) {
 			String localDir = dir;
+
+			// setup the chromedriver using WebDriverManager
+			// WebDriverManager.chromedriver().setup();
 			if (localDir.endsWith("appTests")) {
 				localDir = localDir + "/src/test/resources/drivers/"; // Eclipse
 																		// IDE
@@ -68,11 +75,14 @@ public class WebdriverManager {
 				System.setProperty("webdriver.chrome.driver", localDir + "chromedriver.exe");
 			}
 			DesiredCapabilities.chrome();
+
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("--start-maximized");
 			chromeOptions.addArguments("window-size=1600,1200");
+
 			driverCustome = new ChromeDriver(chromeOptions);
-			ChromeDriver driverCustome = (ChromeDriver) driver;
+			driverCustome = (ChromeDriver) driver;
+
 
 			// driver = new ChromeDriver(chromeOptions);
 		}
