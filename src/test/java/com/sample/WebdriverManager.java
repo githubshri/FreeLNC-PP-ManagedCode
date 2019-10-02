@@ -13,20 +13,17 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
- * @author robin
+ * @author shridhar1287
  *
  */
 public class WebdriverManager {
 	public static final String dir = System.getProperty("user.dir");
 	public static final ThreadLocal<WebDriver> WEB_DRIVER_THREAD_LOCAL = ThreadLocal
 			.withInitial(WebdriverManager::startBrowser);
-	private static final String BASE_URL_PROPERTY = "url";
+//	private static final String BASE_URL_PROPERTY = "url";
 	private static final String BROWSER_PROPERTY = "browser";
 
 	static {
-		if (System.getProperty(BASE_URL_PROPERTY) == null) {
-			System.setProperty(BASE_URL_PROPERTY, "https://developer.trustedkey.com/");
-		}
 		if (System.getProperty(BROWSER_PROPERTY) == null) {
 			System.setProperty(BROWSER_PROPERTY, "chrome");
 		}
@@ -45,7 +42,6 @@ public class WebdriverManager {
  */
 	private static WebDriver startBrowser() {
 		String browserName = System.getProperty(BROWSER_PROPERTY);// ConfigHolder.getBrowserType();
-		String url = System.getProperty(BASE_URL_PROPERTY);// ConfigHolder.getBaseUrl();
 
 		if (browserName.equalsIgnoreCase("firefox")) {
 			DesiredCapabilities.firefox();
@@ -80,7 +76,6 @@ public class WebdriverManager {
 
 			// driver = new ChromeDriver(chromeOptions);
 		}
-		driver.get(url);
 
 		return driverCustome;
 	}
